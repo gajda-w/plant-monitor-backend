@@ -48,6 +48,8 @@ app.get('/api/status', async (req, res) => {
     isLightOn: getLightStatus(),
     isFanOn: true,
     isHumidifierOn: true,
+    lightStartHour: lightStartHour,
+    lightEndHour: lightEndHour,
   };
   res.json(sensorData);
 });
