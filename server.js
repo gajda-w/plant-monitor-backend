@@ -28,8 +28,21 @@ async function readSensor() {
   }
 }
 
-app.get('/api/sensors', async (req, res) => {
-  const sensorData = await readSensor();
+const startLightTime = 6;
+const endLightTime = 24;
+
+const getLightStatus = () => {
+  const currentHour = new Date().getHours();
+  return currentHour >= startLightTime && currentHour < endLightTime;
+};
+
+app.get('/api/status', async (req, res) => {
+  const sensorData = {
+    sensors: await readSensor(),
+    isLightOn: getLightStatus(),
+    isFanOn: true,
+    isHumidifierOn: true,
+  };
   res.json(sensorData);
 });
 
